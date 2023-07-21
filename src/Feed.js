@@ -6,26 +6,23 @@ import HelpIcon from '@mui/icons-material/Help';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import './css/feed.css'
 import Post from './Post';
-// import firebase from 'firebase/app'
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-import { db } from './firebaseee'
-
-
-function Feed () {
-  const [input,setInput]  = useState();
-  const submitPost=(e)=>{
+import db from "./firebasee";
+import { doc, collection, setDoc } from "firebase/firestore";
+function Feed () { 
+  const [input,setInput] = useState();
+  async function submitPost(e){
     e.preventDefault();
-    const timestamp = new Date()
-    // alert(input);
-    db.collection("posts").add({
-      name:"Sonal Gupta",
-      description:"This is demo",
-      message:input,
-      photoURL:"https://tse2.mm.bing.net/th?id=OIP.jryuUgIHWL-1FVD2ww8oWgHaHa&pid=Api&P=0&h=180",
-      timestamp:timestamp,
+    const timestamp = new Date();
+    const postRef = collection(db, "post");
+    await setDoc(doc(postRef), {
+      name: "Sonal Gupta",
+      description: "This is demo",
+      message: input,
+      photoURL:
+        "https://tse2.mm.bing.net/th?id=OIP.jryuUgIHWL-1FVD2ww8oWgHaHa&pid=Api&P=0&h=180",
     });
     setInput("");
-  } 
+  }
   return (
     <div className='feed'>
         <div className='feed_input'>
@@ -56,8 +53,6 @@ function Feed () {
         </div>
         </div>
         <Post name="Hermoine Granger" description="Learning ReactJS" message="React is a popular JavaScript library used for building user interfaces, providing a component-based approach for efficient and reusable UI development."/>
-
-        {/* <Post name="Harry Potter" description="Learning ReactJS" message="React is a popular JavaScript library used for building user interfaces, providing a component-based approach for efficient and reusable UI development."/> */}
     </div>
   
   )
