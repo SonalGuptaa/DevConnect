@@ -19,11 +19,10 @@ function Feed() {
     const timestamp = new Date();
     const postRef = collection(db, 'post');
     await setDoc(doc(postRef), {
-      name: 'Sonal Gupta',
-      description: 'This is demo',
+      name: 'Hermoine Grangers',
+      description: 'About ReactJs',
       message: input,
-      photoURL:
-        'https://tse2.mm.bing.net/th?id=OIP.jryuUgIHWL-1FVD2ww8oWgHaHa&pid=Api&P=0&h=180',
+      photoURL:'https://i.pinimg.com/originals/f5/94/5a/f5945a2abc40cbc09bd991aa065daa8d.jpg',
       timestamp: serverTimestamp(),
     });
     setInput('');
@@ -65,7 +64,7 @@ function Feed() {
     <div className='feed'>
       <div className='feed_input'>
         <div className='feed_form'>
-          <Avatar />
+          <Avatar src='https://i.pinimg.com/originals/f5/94/5a/f5945a2abc40cbc09bd991aa065daa8d.jpg'/>
           <form onSubmit={submitPost}>
             <input
               type='text'
@@ -95,14 +94,11 @@ function Feed() {
           </div>
         </div>
       </div>
-      {posts.map((post) => (
-        <Post
-          key={post.id}
-          name={post.data.name}
-          description={post.data.description}
-          message={post.data.message}
-        />
-      ))}
+      {
+      posts.map(({id,data: {name,description,message,photoURL}})=>{
+        return <Post name={name} description={description} message={message} photoURL={photoURL} />
+      })
+      }
     </div>
   );
 }

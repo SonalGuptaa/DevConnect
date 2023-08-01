@@ -1,20 +1,26 @@
-import React from 'react'
-// import  ReactDOM  from 'react-dom'
-import Header from './Header'
-import Sidebar from './Sidebar'
-import Feed from './Feed'
-const App = () => {
+import React from 'react';
+import Header from './Header';
+import Sidebar from './Sidebar';
+import Feed from './Feed';
+import Login from './Login'
+//Later use Redux
+const user = null;
+function App() {
   return (
-    <>
-      <div className='app_wrapper'>
-         <Header/>
+   <>
+   {
+        !user ? (<Login/>) : (
+        <div className='app_wrapper'> 
+          <Header/>
          <div className='app_body'>
               <Sidebar/>
-              <Feed/>
+             <Feed/>
          </div>
-      </div>
-    </>
+      </div> )
+  
+  }
+  </>
   )
 }
-
 export default App
+
